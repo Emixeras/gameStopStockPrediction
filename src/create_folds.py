@@ -8,6 +8,7 @@ df["kfold"] = -1
 
 df = df.sample(frac=1).reset_index(drop=True)
 
+# n_splits = number of folds, change if neccesary
 kf = model_selection.KFold(n_splits=5)
 
 for fold, (trn_, val_) in enumerate(kf.split(X=df)):
