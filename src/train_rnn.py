@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot
 
 from sklearn import metrics
 from sklearn.preprocessing import MinMaxScaler
@@ -9,12 +10,13 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import Dropout
 
+from gameStopStockPrediction.src.own_metrics_and_other_utils import mda
+
 train_threshold = 60
-batch_size = 10
+batch_size = 15
 neurons = 15
 epochs = 80
 hidden_layers = 1
-
 
 
 # beste momentan 1 hidden 15 neurons 80 epochs (35) oder aber 1 hidden 15 neurons batch size 10 epochs =200
@@ -24,12 +26,14 @@ def build_model(number_hidden_layers, number_neurons, number_epochs):
     # build model
     model = Sequential()
 
-    for i in range(1, number_hidden_layers+1):
+    for i in range(1, number_hidden_layers + 1):
         if i == number_hidden_layers and number_hidden_layers == 1:
-            model.add(LSTM(units=number_neurons, return_sequences=False, input_shape=(X_train.shape[1], 1)))
+            model.add(LSTM(units=number_neurons, return_sequences=False, input_shape=
+            (X_train.shape[1], X_train.shape[2])))
             model.add(Dropout(0.2))
         elif i == 1:
-            model.add(LSTM(units=number_neurons, return_sequences=True, input_shape=(X_train.shape[1], 1)))
+            model.add(LSTM(units=number_neurons, return_sequences=True, input_shape=
+            (X_train.shape[1], X_train.shape[2])))
             model.add(Dropout(0.2))
         elif i == number_hidden_layers:
             model.add(LSTM(units=number_neurons, return_sequences=False))
@@ -70,7 +74,7 @@ X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
 # prepare test data for prediction
 X_test = []
 inputs = df.iloc[:, 4:5]
-inputs = inputs[len(inputs)-len(test_data)-batch_size:].values
+inputs = inputs[len(inputs) - len(test_data) - batch_size:].values
 inputs = inputs.reshape(-1, 1)
 inputs = normalizer.transform(inputs)
 
@@ -85,13 +89,12 @@ predicted_stock_price = model.predict(X_test)
 
 predicted_stock_price = normalizer.inverse_transform(predicted_stock_price)
 
+# Metrics
 print("MAE:", metrics.mean_absolute_error(test_data, predicted_stock_price))
 print("MAPE:", metrics.mean_absolute_percentage_error(test_data, predicted_stock_price) * 100)
-
-
-def mda(actual: np.ndarray, predicted: np.ndarray):
-    """ Mean Directional Accuracy """
-    return np.mean((np.sign(actual[1:] - actual[:-1]) == np.sign(predicted[1:] - predicted[:-1])).astype(int))
-
-
 print("MDA", mda(test_data, predicted_stock_price) * 100)
+
+pyplot.plot(test_data, label="Echte kursdaten")
+pyplot.plot(predicted_stock_price, label="Predictions")
+pyplot.legend()
+pyplot.show()
