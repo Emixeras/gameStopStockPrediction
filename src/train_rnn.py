@@ -15,6 +15,8 @@ neurons = 15
 epochs = 80
 hidden_layers = 1
 
+
+
 # beste momentan 1 hidden 15 neurons 80 epochs (35) oder aber 1 hidden 15 neurons batch size 10 epochs =200
 
 
