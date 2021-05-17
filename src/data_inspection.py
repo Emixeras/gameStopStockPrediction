@@ -3,7 +3,7 @@ import numpy as np
 
 from gameStopStockPrediction.src.own_metrics_and_other_utils import compute_average_change_per_timestep
 
-df = pd.read_csv("../input/GME_04Jan_12May.csv")
+df = pd.read_csv("../input/GME_04Jan_11May.csv")
 print("Number of rows and colums:", df.shape)
 df.head(5)
 train_threshold = 60

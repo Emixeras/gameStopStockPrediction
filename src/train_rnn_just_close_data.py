@@ -52,7 +52,7 @@ def build_model(number_hidden_layers, number_neurons, number_epochs):
 
 
 # read in csv and divide data into train and test
-df = pd.read_csv("../input/GME_04Jan_12May.csv")
+df = pd.read_csv("../input/GME_04Jan_11May.csv")
 train_data = df.iloc[:train_threshold, 4:5].values
 test_data = df.iloc[train_threshold:, 4:5].values
 
