@@ -102,8 +102,3 @@ for index, row in config.iterrows():
 config["MAE"] = MAE_array
 
 config.to_csv("../input/rnn_model_configs_with_MAE_onlyClose")
-
-
-
-
-
