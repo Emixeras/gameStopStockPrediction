@@ -17,7 +17,7 @@ test_close_values = df.iloc[train_threshold - batch_size:, 4:5].values
 
 test_average_change = compute_average_change_per_timestep(test_close_values)
 
-df = pd.read_csv("../input/reddit_comments_Januar01_May19_polished.csv")
+df = pd.read_csv("../input/reddit_comments_Jan01_May19_polished.csv")
 
 np.median(df["Anzahl"])
 
