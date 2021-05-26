@@ -10,7 +10,6 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from keras.layers import Dropout
 
-
 from gameStopStockPrediction.src.own_metrics_and_other_utils import mda
 
 train_threshold = 60
@@ -82,8 +81,6 @@ for i in range(batch_size, len(inputs)):
     X_test.append(inputs[i - batch_size:i, 0])
 X_test = np.array(X_test)
 X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
-
-
 
 model = build_model(hidden_layers, neurons, epochs)
 predicted_stock_price = model.predict(X_test)
