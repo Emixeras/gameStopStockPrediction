@@ -13,10 +13,10 @@ from keras.layers import Dropout
 from gameStopStockPrediction.src.own_metrics_and_other_utils import mda
 
 train_threshold = 60
-batch_size = 5
+batch_size = 10
 neurons = 10
-epochs = 300
-hidden_layers = 3
+epochs = 100
+hidden_layers = 1
 
 
 # beste momentan 2 hidden 15 neurons 150 epochs oder aber 1 hidden 15 neurons batch size 10 epochs =200
@@ -98,3 +98,4 @@ pyplot.plot(test_data, label="Echte Kursdaten")
 pyplot.plot(predicted_stock_price, label="Predictions")
 pyplot.legend()
 pyplot.show()
+
