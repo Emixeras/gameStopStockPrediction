@@ -19,6 +19,7 @@ def build_model(number_hidden_layers, number_neurons, number_epochs):
     # build model
     model = Sequential()
 
+    # adding hidden LSTM layers as specified in parameter
     for i in range(1, number_hidden_layers + 1):
         if i == number_hidden_layers and number_hidden_layers == 1:
             model.add(LSTM(units=number_neurons, return_sequences=False, input_shape=
